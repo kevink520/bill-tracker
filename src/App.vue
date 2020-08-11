@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main>
+    <AddCategory v-if="shouldShowAddCategory" @addCategory="addCategory" />
+    <div v-else>
+      <NavBar />
+      <div class="container flex">
+        <div class="w-1/2">
+          <BillsTable />
+        </div>
+        <div clasd="w-1/2">
+          <Chart :bills="activeBills" />
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import Vue from 'vue';
+
+import AddCategory from './components/AddCategory';
+//import AddBill from './components/AddBill';
+import NavBar from './components/NavBar';
+import Chart from './components/Chart';
+import BillsTable from './components/BillsTable';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    AddCategory,
+    //AddBill,
+    NavBar,
+    Chart,
+    BillsTable
+  },
+  data() {
+    return {
+      bills: [],
+      categories: [],
+      shouldShowAddCategory: true
+    };
+  },
+  methods: {
+    addCategory(category) {
+      this.categories.push(category);
+      this.shouldShowAddCategory = false;
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
