@@ -1,6 +1,9 @@
 <template>
   <main>
-    <AddCategory v-if="shouldShowAddCategory" @addCategory="addCategory" />
+    <AddCategory
+      v-if="shouldShowAddCategory"
+      @addCategory="addCategory"
+    />
     <div v-else>
       <NavBar
         :categories="categories"

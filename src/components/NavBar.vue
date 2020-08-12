@@ -9,7 +9,7 @@
     </li>
     <li
       class="top-menu-item"
-      @click="triggerAddShowCategory"
+      @click="triggerShowAddCategory"
     >
       +
     </li>
