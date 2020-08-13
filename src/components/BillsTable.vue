@@ -2,17 +2,34 @@
   <table class="table">
     <thead class="bg-blue-400 text-white">
       <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Category</th>
-        <th scope="col"></th>
+        <th
+          scope="col"
+          class="py-1 px-3"
+        >
+          Date
+        </th>
+        <th
+          scope="col"
+          class="py-1 px-3"
+        >
+          Amount
+        </th>
+        <th
+          scope="col"
+          class="py-1 px-3"
+        >
+          Category
+        </th>
+        <th
+          scope="col"
+        ></th>
       </tr>
     </thead>
     <tbody>
-      <tr class="p-4 bg-blue-200 text-center">
+      <tr class="p-4 bg-blue-100 text-center">
         <td colspan="4">
           <button
-            class="underline"
+            class="py-1 px-3 underline text-gray-700"
             @click="triggerShowAddBill"
           >
             Add new
@@ -24,11 +41,16 @@
         :key="index"
         class="p-4"
       >
-        <td>{{ bill.date | moment('MMM D, YYYY') }}</td>
-        <td>${{ bill.amount }}</td>
-        <td>{{ bill.category }}</td>
-        <td>
-          <button @click="removeBill(index)">X</button>
+        <td class="py-1 px-3 text-gray-700">{{ bill.date | moment('MMM D, YYYY') }}</td>
+        <td class="py-1 px-3 text-gray-700">${{ bill.amount }}</td>
+        <td class="py-1 px-3 text-gray-700">{{ bill.category }}</td>
+        <td class="py-1 px-3">
+          <button
+            class="py-1 px-3 text-gray-700"
+            @click="removeBill(index)"
+          >
+            &times;
+          </button>
         </td>
       </tr>
     </tbody>

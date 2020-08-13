@@ -13,12 +13,15 @@
       <div v-else>
         <NavBar
           :categories="categories"
+          :activeCategory="activeCategory"
           @triggerShowAddCategory="triggerShowAddCategory"
+          @clearActiveCategory="clearActiveCategory"
+          @setActiveCategory="setActiveCategory"
         />
-        <div class="container flex">
+        <div class="container flex p-6">
           <div class="w-1/2">
             <BillsTable
-              :bills="bills"
+              :bills="activeBills"
               @triggerShowAddBill="triggerShowAddBill"
               @removeBill="removeBill"
             />
@@ -55,7 +58,8 @@ export default {
       bills: [],
       categories: [],
       shouldShowAddCategory: true,
-      shouldShowAddBill: false
+      shouldShowAddBill: false,
+      activeCategory: '',
     };
   },
   methods: {
@@ -75,7 +79,13 @@ export default {
     },
     removeBill(index) {
       this.bills = this.bills.slice(0, index).concat(this.bills.slice(index + 1));
-    }
+    },
+    clearActiveCategory() {
+      this.activeCategory = '';
+    },
+    setActiveCategory(category) {
+      this.activeCategory = category;
+    },
   },
   watch: {
     bills() {
@@ -94,9 +104,13 @@ export default {
       this.categories = JSON.parse(localStorage.getItem('categories'));
     }
 
-    if (this.bills.length === 0 && this.categories.length === 0) {
-      this.shouldShowAddCategory = true;
-    }
-  }
+    this.shouldShowAddCategory = this.bills.length === 0 && this.categories.length === 0;
+  },
+  computed: {
+    activeBills() {
+      return this.bills.filter(bill => this.activeCategory ? bill.category === this.activeCategory : true)
+        .sort((a, b) => new Date(a.date) < new Date(b.date) ? 1 : -1);
+    },
+  },
 };
 </script>
