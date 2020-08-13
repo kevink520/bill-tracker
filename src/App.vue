@@ -8,18 +8,19 @@
       <AddBill
         v-if="shouldShowAddBill"
 	:categories="categories"
-	@addBill="addBill"
+        @addBill="addBill"
       />
       <div v-else>
         <NavBar
           :categories="categories"
-	  @triggerShowAddCategory="triggerShowAddCategory"
+          @triggerShowAddCategory="triggerShowAddCategory"
         />
         <div class="container flex">
           <div class="w-1/2">
             <BillsTable
               :bills="bills"
               @triggerShowAddBill="triggerShowAddBill"
+              @removeBill="removeBill"
             />
           </div>
           <div clasd="w-1/2">
@@ -71,6 +72,9 @@ export default {
     },
     triggerShowAddBill() {
       this.shouldShowAddBill = true;
+    },
+    removeBill(index) {
+      this.bills = this.bills.slice(0, index).concat(this.bills.slice(index + 1));
     }
   },
   watch: {
